@@ -1,0 +1,18 @@
+type ChangedLandOwner @entity(immutable: true) {
+  id: Bytes!
+  landAddress: String! # string
+  oldOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type NewLandOwner @entity(immutable: true) {
+  id: Bytes!
+  landAddress: String! # string
+  owner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
