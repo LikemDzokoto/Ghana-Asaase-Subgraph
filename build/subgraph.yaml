@@ -1,6 +1,6 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: GhanaAsaase
@@ -18,10 +18,10 @@ dataSources:
         - NewLandOwner
       abis:
         - name: GhanaAsaase
-          file: ./abis/GhanaAsaase.json
+          file: GhanaAsaase\abis\GhanaAsaase.json
       eventHandlers:
         - event: ChangedLandOwner(string,address,address)
           handler: handleChangedLandOwner
         - event: NewLandOwner(string,address)
           handler: handleNewLandOwner
-      file: ./src/ghana-asaase.ts
+      file: GhanaAsaase\GhanaAsaase.wasm
