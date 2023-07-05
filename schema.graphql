@@ -1,8 +1,20 @@
+type Land @entity {
+  id: ID! #landAddress
+  owner: User!
+  previousOwner: User
+  lastModified: BigInt! #TimeStamp
+}
+
+type User @entity {
+  id: ID! #OwnerName
+  ownedLandTitles: [Land!] @derivedFrom(field: "owner")
+}
+
 type ChangedLandOwner @entity(immutable: true) {
   id: Bytes!
-  landAddress: String! # string
-  oldOwner: Bytes! # address
-  newOwner: Bytes! # address
+  land: Land! # string
+  oldOwner: User! # string
+  newOwner: User! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -10,8 +22,8 @@ type ChangedLandOwner @entity(immutable: true) {
 
 type NewLandOwner @entity(immutable: true) {
   id: Bytes!
-  landAddress: String! # string
-  owner: Bytes! # address
+  land: Land! # string
+  owner: User! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!

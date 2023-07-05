@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: GhanaAsaase
-    network: sepolia
+    network: mumbai
     source:
-      address: "0xdc77D7Ba442091108c0f4631616ef16CC7f8E9cB"
+      address: "0xF65f5494e5e4D446ED18e4dc5455fDD4605B1E8E"
       abi: GhanaAsaase
-      startBlock: 3810664
+      startBlock: 37509409  
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

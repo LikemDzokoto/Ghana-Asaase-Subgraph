@@ -2,33 +2,18 @@ import {
   ChangedLandOwner as ChangedLandOwnerEvent,
   NewLandOwner as NewLandOwnerEvent
 } from "../generated/GhanaAsaase/GhanaAsaase"
-import { ChangedLandOwner, NewLandOwner } from "../generated/schema"
+import { createChangedLandOwner, createLand, createNewLandOwner, getOrCreateUser, updateLandOwner } from "./helper"
 
 export function handleChangedLandOwner(event: ChangedLandOwnerEvent): void {
-  let entity = new ChangedLandOwner(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.landAddress = event.params.landAddress
-  entity.oldOwner = event.params.oldOwner
-  entity.newOwner = event.params.newOwner
+ let newOwner = getOrCreateUser(event.params.newOwner);
+ let land = updateLandOwner(event.params.landAddress, newOwner.id, event.block.timestamp);
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+ createChangedLandOwner(event);
 }
 
 export function handleNewLandOwner(event: NewLandOwnerEvent): void {
-  let entity = new NewLandOwner(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.landAddress = event.params.landAddress
-  entity.owner = event.params.owner
+  let owner = getOrCreateUser(event.params.owner);
+  let land = createLand(event.params.landAddress, owner.id, event.block.timestamp);
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+  createNewLandOwner(event);
 }
